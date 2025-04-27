@@ -88,7 +88,10 @@ To test the UART loopback functionality, use the **Docklight** software.
 - - !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/FPGA_uartloopback_picture.jpg?raw=true)
 
 ## Video Demonstration
-- A video demonstrating the UART loopback functionality is available: **VID_20250415_202951.mp4**
+- A video demonstrating the UART loopback functionality is available:
+- **Video Demonstration**:  
+[Click here to watch the video](https://github.com/user-attachments/assets/your_video.mp4)
+
 # Conclusion
 
 This project successfully implements a UART loopback mechanism on an FPGA board, enabling effective testing of UART communication functionality.  
