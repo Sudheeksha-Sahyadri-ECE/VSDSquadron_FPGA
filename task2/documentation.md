@@ -6,7 +6,7 @@ The goal of this project is to implement a UART (Universal Asynchronous Receiver
 ## Overview:
 UART is a commonly used protocol for serial communication. It utilizes two primary data lines: TX (Transmit) and RX (Receive). In a loopback configuration, the transmitted data on the TX pin is routed directly back to the RX pin. This provides a convenient method for testing UART functionality without requiring an external device.
 
-The existing Verilog code can be found [here](task2), sourced from [VSDSquadron_FM](https://github.com/thesourcerer8/VSDSquadron_FM/tree/main/uart_loopback).
+The existing Verilog code is sourced from [VSDSquadron_FM](https://github.com/thesourcerer8/VSDSquadron_FM/tree/main/uart_loopback).
 
 ## Code Analysis:
 The provided Verilog code includes several key components that facilitate the UART loopback mechanism:
