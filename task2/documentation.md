@@ -32,8 +32,7 @@ The UART loopback system consists of the following elements:
 
 1. **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
    - <img
-src="![image](https://github.com/user-attachments/assets/a74a865c-9c3f-4fff-bf98-8b8f2ef0461f)
-" alt="block diagram"/>
+src="task2/block diagram.jpg" alt="Task Icon"/>
 
 2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
    - ![Circuit Diagram](image_placeholder)
@@ -53,4 +52,46 @@ VSDSquadronFM/
     ├── Makefile
     ├── uart_trx.v
     ├── top_module.v
-    └── uart_loopback.pcf
+    └── uart_loopback.pc
+```
+# Step 3: Transmitting Code to the FPGA Board
+
+Once the files are ready, proceed with the following steps to transmit the code to the FPGA board:
+
+## Navigate to the Project Folder
+```bash
+cd VSDSquadron_FM
+cd UART_loopback
+```
+## check for FPGA connection
+
+# Build and Flash the FPGA
+
+```bash
+make build
+sudo make flash
+```
+# Step 4: Testing the UART Loopback
+
+To test the UART loopback functionality, use the **Docklight** software.
+
+1. Download and install Docklight from the official website.
+2. Open Docklight and ensure it is connected to the correct communication port (e.g., **COM7**).
+3. If necessary, change the port under:
+
+4. Set the baud rate to **9600**.
+
+# Step 5: Documentation and Results
+
+## Block and Circuit Diagrams
+- Add block and circuit diagrams here.
+
+## Testing Results
+- Screenshots of Docklight demonstrating the loopback functionality.
+
+## Video Demonstration
+- A video demonstrating the UART loopback functionality is available: **VID_20250415_202951.mp4**
+# Conclusion
+
+This project successfully implements a UART loopback mechanism on an FPGA board, enabling effective testing of UART communication functionality.  
+The loopback allows data sent to the TX pin to be immediately received back on the RX pin, providing an efficient means for testing UART hardware communication.
