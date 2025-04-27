@@ -32,7 +32,7 @@ The UART loopback system consists of the following elements:
 
 1. **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
    - <img
-src="task2/block diagram.jpg" alt="Task Icon"/>
+src="[task2/block diagram.jpg](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/block%20diagram.jpg?raw=true)" alt="Task Icon"/>
 
 2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
    - ![Circuit Diagram](image_placeholder)
