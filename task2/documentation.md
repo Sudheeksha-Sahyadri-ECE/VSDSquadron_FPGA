@@ -31,8 +31,7 @@ The provided Verilog code includes several key components that facilitate the UA
 The UART loopback system consists of the following elements:
 
 1. **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
-  -  <img
-src="https://github.com/Sudheeksha-Sahyadri-ECE/samsung-riscv/blob/main/task1/riscv%20based%20lab%20output.png?raw=true" alt="Task Icon"/>
+   - ![Block Diagram](https://github.com/user-attachments/assets/d5863a9c-36aa-4d5a-aa6a-e8e6cd94e26e)
 
 2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
    - ![Circuit Diagram](image_placeholder)
