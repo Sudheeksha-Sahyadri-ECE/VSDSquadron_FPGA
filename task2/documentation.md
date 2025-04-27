@@ -90,7 +90,7 @@ To test the UART loopback functionality, use the **Docklight** software.
 ## Video Demonstration
 - A video demonstrating the UART loopback functionality is available:
 - **Video Demonstration**:  
-[Click here to watch the video](https://github.com/user-attachments/assets/your_video.mp4)
+[Click here to watch the video](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/raw/refs/heads/main/task2/uart_loopback_demovideo.mp4)
 
 # Conclusion
 
