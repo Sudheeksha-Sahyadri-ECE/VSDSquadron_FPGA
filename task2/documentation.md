@@ -33,7 +33,7 @@ The UART loopback system consists of the following elements:
 1. **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
    - ![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/block%20diagram.jpg?raw=true)
 2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
-   - ![Circuit Diagram](image_placeholder)
+   - !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/circuit%20diagram.jpg?raw=true)
 
 ## Step 2: Code and Files Structure
 Create the following files in a folder named `UART_loopback` under `VSDSquadronFM`:
