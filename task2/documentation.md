@@ -85,7 +85,7 @@ To test the UART loopback functionality, use the **Docklight** software.
 - Add block and circuit diagrams here.
 
 ## Testing Results
-- Screenshots of Docklight demonstrating the loopback functionality.
+- - !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/FPGA_uartloopback_picture.jpg?raw=true)
 
 ## Video Demonstration
 - A video demonstrating the UART loopback functionality is available: **VID_20250415_202951.mp4**
