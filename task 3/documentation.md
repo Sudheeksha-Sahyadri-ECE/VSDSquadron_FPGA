@@ -43,14 +43,10 @@ A UART transmitter module facilitates serial communication by transmitting data 
 
 ## Step 2: Design Documentation
 
-### Block Diagram
-> *Insert UART block diagram here showing:*  
-> *Input Data → UART Transmitter FSM → TX Line → External Device*
-
-### Circuit Diagram
-> *Insert simple connection diagram showing:*  
-> *FPGA TX → USB-to-Serial RX → PC COM Port, along with common GND*
-
+ **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
+   - ![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/block%20diagram.jpg?raw=true)
+2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
+   - !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/circuit%20diagram.jpg?raw=true)
 ---
 
 ## Step 3: Implementation
