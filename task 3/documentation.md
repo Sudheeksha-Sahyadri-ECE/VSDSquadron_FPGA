@@ -11,7 +11,7 @@ A UART transmitter module facilitates serial communication by transmitting data 
 
 **Repository Links**:
 - Project source: [VSDSquadron_FM](https://github.com/thesourcerer8/VSDSquadron_FM/tree/main/uart_tx)
-- Internship Task Code: [UART Transmitter Task](https://github.com/Bhavankumar123/VSDSquadron-FPGA-Mini-Internship-program/tree/main/Task_3)
+- Internship Task Code: [UART Transmitter Task](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA.git)
 
 ### Module Overview
 - **Language**: VHDL
