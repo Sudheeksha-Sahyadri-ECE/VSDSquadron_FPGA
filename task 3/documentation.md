@@ -94,7 +94,6 @@ sudo make flash
 
 ### UART Transmission in Action
 
-- *Filename*: VID_20250418_121257.mp4
 - *The video demonstrates*:
   - Proper hardware connections
   - Blinking RGB LED activity
