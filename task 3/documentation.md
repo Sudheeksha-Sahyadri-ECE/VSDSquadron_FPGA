@@ -46,7 +46,7 @@ A UART transmitter module facilitates serial communication by transmitting data 
  **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
    - ![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task%203/block%20diagram.jpg?raw=true)
 2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
-   - !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/circuit%20diagram.jpg?raw=true)
+   - !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task%203/circuit%20diagram.jpg?raw=true)
 ---
 
 ## Step 3: Implementation
