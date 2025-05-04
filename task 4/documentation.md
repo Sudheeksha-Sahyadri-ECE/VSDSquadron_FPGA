@@ -86,3 +86,78 @@ The `uart_tx_sense` module implements a UART transmitter designed for sensor-bas
 1. Open terminal and navigate to project folder:
    ```bash
    cd VSDSquadron_FM/uart_transmission/uart_tx_sense
+
+   ### ✅ Verify FPGA is Connected
+
+Open a terminal and run the following command to ensure the FPGA board is detected:
+
+```bash
+lsusb
+```
+### 🛠️ Build the Code
+
+Navigate to the project directory and build the design using the following command:
+
+```bash
+make build
+```
+### 🔁 Flash the Bitstream to FPGA
+
+Once the build is complete, use the following command to flash the bitstream to your FPGA:
+
+```bash
+sudo make flash
+```
+## 🧪 Step 4: Testing and Verification
+
+### 🔌 Connect Serial Monitor
+
+- Use PuTTY, CoolTerm, or any serial monitor.
+- Set baud rate (e.g., 9600 or as per your UART setup).
+- Select the correct COM port (e.g., `COM64`).
+
+### 📈 Expected Output
+
+- A stream of ASCII characters (e.g., "D", "E", etc.) will appear on the screen.
+- When sensor input is stimulated, you will observe different outputs.
+- On successful transmission, the RGB LED on the FPGA may turn **Red** (if integrated into logic).
+
+---
+
+## 📝 Step 5: Documentation
+
+### 📄 Included in Final Report
+
+- Block Diagram
+- Circuit Diagram
+- Verilog Code Overview
+- Testing Procedure and Results
+- Status Signals Description
+- Expected UART Output Format
+
+### 🎥 Video Demonstration
+
+
+- Real-time sensor input.
+- UART serial transmission.
+- Live output on terminal.
+- FPGA status indication (LED change, etc.).
+
+---
+
+## ✅ Summary
+
+- Built a sensor-based UART transmission module.
+- Implemented Verilog code with a clean FSM design.
+- Verified data on serial terminal.
+- Documented the full pipeline from data acquisition to UART output.
+
+---
+
+## 📚 References
+
+- [VSDSquadron GitHub Repository](https://github.com)
+- FPGA board documentation and datasheet
+- UART protocol standard
+
+
