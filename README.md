@@ -4,6 +4,8 @@
 <summary>TASK1:RGB LED Control on VSDSquadron FPGA Mini Board
 
 </summary>
+</summary>
+</details>
 # RGB LED Control on VSDSquadron FPGA Mini Board
 
 This project demonstrates the implementation of a Verilog-based RGB LED control module on the **VSDSquadron FPGA Mini Board**. The design uses an internal oscillator to drive a frequency counter and control the on-board RGB LED through appropriate pin mappings and logic.
@@ -121,7 +123,7 @@ This mini-project helped in understanding:
 * Hardware-level debugging and LED testing
 
 The setup now serves as a base to explore more complex FPGA-based digital designs.
-
+</details>
 <details>
 <summary>TASK2: UART Loopback Mechanism Implementation
 
@@ -245,7 +247,7 @@ To test the UART loopback functionality, use the **Docklight** software.
 
 This project successfully implements a UART loopback mechanism on an FPGA board, enabling effective testing of UART communication functionality.
 The loopback allows data sent to the TX pin to be immediately received back on the RX pin, providing an efficient means for testing UART hardware communication.
-
+</details>
 <details>
 <summary>TASK3:Developing a UART Transmitter Module
 </summary>
@@ -380,7 +382,7 @@ sudo make flash
 ## Conclusion
 
 The UART transmitter module was successfully implemented and verified. The FPGA continuously transmits serial data in *8N1* format. The functionality was tested using PuTTY, with expected character output and RGB LED blinking behavior. This project confirms the reliability of an FSM-based UART implementation for real-time serial communication on an FPGA.
-
+</details>
 <details>
 <summary>TASK4:UART-Based Sensor Data Transmission System for FPGA
 </summary>
@@ -555,3 +557,4 @@ sudo make flash
 * [VSDSquadron GitHub Repository](https://github.com)
 * FPGA board documentation and datasheet
 * UART protocol standard
+</details>
