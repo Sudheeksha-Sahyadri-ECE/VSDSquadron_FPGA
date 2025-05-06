@@ -122,3 +122,436 @@ This mini-project helped in understanding:
 
 The setup now serves as a base to explore more complex FPGA-based digital designs.
 
+<details>
+<summary>TASK2: UART Loopback Mechanism Implementation
+
+</summary>
+
+\---.........................task 2:# UART Loopback Mechanism Implementation
+
+## Objective:
+
+The goal of this project is to implement a UART (Universal Asynchronous Receiver-Transmitter) loopback mechanism, which allows for the immediate reception of transmitted data. This functionality is useful for testing and verifying UART communication on FPGA boards.
+
+## Overview:
+
+UART is a commonly used protocol for serial communication. It utilizes two primary data lines: TX (Transmit) and RX (Receive). In a loopback configuration, the transmitted data on the TX pin is routed directly back to the RX pin. This provides a convenient method for testing UART functionality without requiring an external device.
+
+The existing Verilog code is sourced from [VSDSquadron\_FM](https://github.com/thesourcerer8/VSDSquadron_FM/tree/main/uart_loopback).
+
+## Code Analysis:
+
+The provided Verilog code includes several key components that facilitate the UART loopback mechanism:
+
+### 1. **Port Breakdown:**
+
+* **RGB LED outputs**: led_red, led_blue, led_green
+* **UART pins**: uarttx (Transmit), uartrx (Receive)
+* **Clock input**: hw_clk
+
+### 2. **Internal Components:**
+
+* **Oscillator (SB\_HFOSC)**: Provides the internal clock signal (int_osc).
+* **Frequency Counter**: A 28-bit counter that increments on the positive edge of the internal clock, providing a timing reference for the system.
+* **UART Loopback**: Direct connection between the TX and RX pins for data transmission and reception.
+* **RGB LED Driver (SB\_RGBA\_DRV)**: Converts the received UART data into PWM signals for controlling LED brightness.
+
+### 3. **System Operation:**
+
+* **UART Communication**: The received data is immediately transmitted back out, and the same data is used to control the RGB LEDs.
+* **LED Control**: The UART data drives all three LEDs with PWM signals.
+* **Timing and Frequency Generation**: The internal oscillator and frequency counter generate the required timing for the system.
+
+## Step 1: Design Overview
+
+The UART loopback system consists of the following elements:
+
+1. **Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
+
+   * ![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/block%20diagram.jpg?raw=true)
+2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
+
+   * !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/circuit%20diagram.jpg?raw=true)
+
+## Step 2: Code and Files Structure
+
+Create the following files in a folder named UART_loopback under VSDSquadronFM:
+
+* **Makefile**: For build automation.
+* **uart\_trx.v**: Verilog code for UART transmission and reception.
+* **top\_module.v**: Top module integrating the UART system.
+* **pcf file**: Pin configuration file.
+
+### Directory Structure:
+
+bash
+VSDSquadronFM/
+└── UART_loopback/
+    ├── Makefile
+    ├── uart_trx.v
+    ├── top_module.v
+    └── uart_loopback.pc
+
+
+# Step 3: Transmitting Code to the FPGA Board
+
+Once the files are ready, proceed with the following steps to transmit the code to the FPGA board:
+
+## Navigate to the Project Folder
+
+bash
+cd VSDSquadron_FM
+cd UART_loopback
+
+
+## check for FPGA connection
+
+# Build and Flash the FPGA
+
+bash
+make build
+sudo make flash
+
+
+# Step 4: Testing the UART Loopback
+
+To test the UART loopback functionality, use the **Docklight** software.
+
+1. Download and install Docklight from the official website.
+
+2. Open Docklight and ensure it is connected to the correct communication port (e.g., **COM7**).
+
+3. If necessary, change the port under:
+
+4. Set the baud rate to **9600**.
+
+# Step 5: Documentation and Results
+
+## Block and Circuit Diagrams
+
+* Add block and circuit diagrams here.
+
+## Testing Results
+
+* * !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task2/FPGA_uartloopback_picture.jpg?raw=true)
+
+## Video Demonstration
+
+* A video demonstrating the UART loopback functionality is available:
+* **Video Demonstration**:
+  [Click here to watch the video](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/raw/refs/heads/main/task2/uart_loopback_demovideo.mp4)
+
+# Conclusion
+
+This project successfully implements a UART loopback mechanism on an FPGA board, enabling effective testing of UART communication functionality.
+The loopback allows data sent to the TX pin to be immediately received back on the RX pin, providing an efficient means for testing UART hardware communication.
+
+<details>
+<summary>TASK3:Developing a UART Transmitter Module
+</summary>
+task3:# Task 3: Developing a UART Transmitter Module
+
+## Objective
+
+To design and implement a UART transmitter module on the FPGA that enables serial communication by converting 8-bit parallel data into a serial bitstream, facilitating data transmission to external devices such as PCs or microcontrollers.
+
+---
+
+## Step 1: Study the Existing Code
+
+A UART transmitter module facilitates serial communication by transmitting data bits one by one over a single line. It is a key interface in embedded systems and FPGA-based communication.
+
+**Repository Links**:
+
+* Project source: [VSDSquadron\_FM](https://github.com/thesourcerer8/VSDSquadron_FM/tree/main/uart_tx)
+* Internship Task Code: [UART Transmitter Task](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA.git)
+
+### Module Overview
+
+* **Language**: VHDL
+* **Configuration**: 8N1 (8 data bits, No parity, 1 stop bit)
+* **Baud Rate**: Defined in code (commonly 9600 bps)
+
+### State Machine Description
+
+1. **STATE\_IDLE**:
+
+   * TX line remains HIGH (idle).
+   * Waits for a signal to begin transmission (senddata).
+   * Clears the txdone flag.
+
+2. **STATE\_STARTTX**:
+
+   * Sends the **start bit** (logic LOW).
+   * Loads the transmission buffer with txbyte.
+   * Proceeds to TXING state.
+
+3. **STATE\_TXING**:
+
+   * Sends 8 data bits serially (LSB first).
+   * Shifts the buffer right each clock cycle.
+   * Continues until all bits are transmitted.
+
+4. **STATE\_TXDONE**:
+
+   * Sends the **stop bit** (logic HIGH).
+   * Sets txdone flag.
+   * Returns to **IDLE**.
+
+---
+
+## Step 2: Design Documentation
+
+**Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
+
+* ![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task%203/block%20diagram.jpg?raw=true)
+
+2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
+
+   * !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task%203/circuit%20diagram.jpg?raw=true)
+
+---
+
+## Step 3: Implementation
+
+### File Setup and Compilation
+
+1. Create a new folder under VSDSquadron_FM and add the UART transmitter code files.
+2. Open a terminal and navigate using:
+
+   
+bash
+   cd VSDSquadron_FM
+   cd uart_tx_sense
+   ### 3. Confirm FPGA Connection
+
+
+To verify that your FPGA is connected to your system, run the following command in the terminal:
+
+bash
+lsusb
+
+
+### 4. Compile and Upload the Design to the FPGA
+
+To build the project and flash the bitstream onto the FPGA, use the following commands in your terminal:
+
+bash
+make build
+sudo make flash
+
+
+## Step 4: Testing and Verification
+
+### Serial Communication Setup
+
+* Use a USB-to-Serial adapter to connect the FPGA’s *TX* pin to your PC.
+* Open *PuTTY* or any terminal emulator.
+* Set the serial configuration as follows:
+
+  * *Port*: (e.g., COM6)
+  * *Baud Rate*: 9600
+  * *Data Bits*: 8
+  * *Parity*: None
+  * *Stop Bits*: 1
+
+---
+
+* ### Expected Output
+
+* Repeated characters like 'D' will appear on the serial terminal.
+
+* The RGB LED on the board should blink in sequence (Red → Green → Blue), confirming successful transmission and correct state machine operation.
+
+---
+
+## Step 5: Documentation
+
+### UART Transmission in Action
+
+* *The video demonstrates*:
+
+  * Proper hardware connections
+  * Blinking RGB LED activity
+  * Continuous serial output shown in PuTTY
+
+---
+
+## Conclusion
+
+The UART transmitter module was successfully implemented and verified. The FPGA continuously transmits serial data in *8N1* format. The functionality was tested using PuTTY, with expected character output and RGB LED blinking behavior. This project confirms the reliability of an FSM-based UART implementation for real-time serial communication on an FPGA.
+
+<details>
+<summary>TASK4:UART-Based Sensor Data Transmission System for FPGA
+</summary>
+task4:# UART-Based Sensor Data Transmission System for FPGA
+
+## 📌 Objective
+
+Implement a UART transmitter that sends data based on sensor inputs, enabling the FPGA to communicate real-time sensor data to an external device.
+
+---
+
+## 🔍 Step 1: Study the Existing Code
+
+### 📁 Module Overview
+
+The uart_tx_sense module implements a UART transmitter designed for sensor-based data communication. It consists of the following key blocks:
+
+* **Data Buffer Management**
+  Temporarily stores 32-bit sensor input data.
+
+* **UART Protocol Controller**
+  Handles UART protocol format: start, data, and stop bits.
+
+* **Transmission Control Logic**
+  Controls when and how data is sent serially.
+
+---
+
+### ⚙️ Operation Flow
+
+#### 1. Data Acquisition
+
+* Data is captured when the valid signal is asserted.
+* The system must be in the IDLE state to accept new data.
+* Captured data is stored in a 32-bit internal register.
+
+#### 2. Transmission Protocol
+
+* **START Bit**: Transmits a logic low (0) to indicate the beginning of a frame.
+* **DATA Bits**: Transmits 8 bits serially, LSB first.
+* **STOP Bit**: Transmits a logic high (1) to complete the frame.
+
+#### 3. Status Signals
+
+* **ready**: Indicates the system is ready to receive new data.
+* **tx_out**: Carries the serial UART-formatted output stream.
+
+---
+
+### 🔌 Port Interface
+
+| Signal    | Direction | Description                            |
+| --------- | --------- | -------------------------------------- |
+| clk     | Input     | System clock                           |
+| reset_n | Input     | Active-low reset                       |
+| data    | Input     | 32-bit sensor data input               |
+| valid   | Input     | Indicates that input data is valid     |
+| tx_out  | Output    | UART serial output                     |
+| ready   | Output    | Indicates readiness for new data input |
+
+---
+
+## 🧠 Step 2: Design Documentation
+
+**Block Diagram**: Illustrates the architecture of the UART loopback mechanism.
+
+* ![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task%204/blockdiagram.jpg?raw=true)
+
+2. **Circuit Diagram**: Shows the connections between the FPGA and peripherals used in the design.
+
+   * !![Image](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/blob/main/task%204/circuitdiagram.jpg?raw=true)
+
+---
+
+> **Note:** The following describes the hardware setup in text form. Use a tool like Fritzing or KiCad for the visual diagram.
+
+* Sensor → FPGA Inputs (data[31:0], valid)
+* FPGA UART tx_out → USB-to-Serial Converter (e.g., CP2102 or FTDI) → PC
+* Power Supply: 3.3V/5V regulated to FPGA and sensor module
+* Common ground between FPGA and external device
+
+---
+
+## 🛠️ Step 3: Implementation
+
+### ✅ Hardware Setup
+
+* Connect your sensor to the FPGA pins.
+* Ensure UART TX pin from FPGA connects to the RX pin of a USB-Serial converter.
+* Power the board properly using a regulated 3.3V/5V power source.
+
+### 💻 Steps to Build and Flash
+
+1. Open terminal and navigate to project folder:
+
+   
+bash
+   cd VSDSquadron_FM/uart_transmission/uart_tx_sense
+
+   ### ✅ Verify FPGA is Connected
+
+
+Open a terminal and run the following command to ensure the FPGA board is detected:
+
+bash
+lsusb
+
+
+### 🛠️ Build the Code
+
+Navigate to the project directory and build the design using the following command:
+
+bash
+make build
+
+
+### 🔁 Flash the Bitstream to FPGA
+
+Once the build is complete, use the following command to flash the bitstream to your FPGA:
+
+bash
+sudo make flash
+
+
+## 🧪 Step 4: Testing and Verification
+
+### 🔌 Connect Serial Monitor
+
+* Use PuTTY, CoolTerm, or any serial monitor.
+* Set baud rate (e.g., 9600 or as per your UART setup).
+* Select the correct COM port (e.g., COM64).
+
+### 📈 Expected Output
+
+* A stream of ASCII characters (e.g., "D", "E", etc.) will appear on the screen.
+* When sensor input is stimulated, you will observe different outputs.
+* On successful transmission, the RGB LED on the FPGA may turn **Red** (if integrated into logic).
+
+---
+
+## 📝 Step 5: Documentation
+
+### 📄 Included in Final Report
+
+* Block Diagram
+* Circuit Diagram
+* Verilog Code Overview
+* Testing Procedure and Results
+* Status Signals Description
+* Expected UART Output Format
+
+### 🎥 Video Demonstration
+
+* Real-time sensor input.
+* UART serial transmission.
+* Live output on terminal.
+* FPGA status indication (LED change, etc.).
+
+---
+
+## ✅ Summary
+
+* Built a sensor-based UART transmission module.
+* Implemented Verilog code with a clean FSM design.
+* Verified data on serial terminal.
+* Documented the full pipeline from data acquisition to UART output.
+
+---
+
+## 📚 References
+
+* [VSDSquadron GitHub Repository](https://github.com)
+* FPGA board documentation and datasheet
+* UART protocol standard
