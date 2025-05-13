@@ -1,108 +1,133 @@
-# **Servo Motor Control via FPGA and UART**
+# LED Control via FPGA and UART
 
 ---
 
-## **1. Project Overview**
-This project demonstrates the control of a servo motor using an FPGA and UART (Universal Asynchronous Receiver Transmitter) communication. The FPGA receives commands via UART and generates corresponding Pulse Width Modulation (PWM) signals to control the position of the servo motor. The main goal of the project is to showcase the FPGA’s ability to interact with hardware peripherals using serial communication.
+## 1. Project Overview
+
+This project demonstrates controlling an LED using an FPGA and UART (Universal Asynchronous Receiver Transmitter) communication. The FPGA receives commands via UART and toggles the LED or cycles its color (if using RGB LED) accordingly. The project showcases basic UART communication and real-time hardware control using an FPGA.
 
 ---
 
-## **2. Hardware Components**
-- **FPGA Board**: A basic FPGA board, such as Xilinx Spartan-6 or Altera Cyclone IV, is used for implementing the UART receiver and PWM generator.
-- **Servo Motor**: A small DC servo motor (SG90 or similar) that can rotate to specified angles when provided with a PWM signal.
-- **Power Supply**: A 5V regulated DC power supply is required for both the FPGA and the servo motor.
-- **Wires and Connectors**: For making the necessary connections between the FPGA, servo motor, and power supply.
-- **PC/Terminal**: Used to send UART commands to the FPGA, through serial communication (e.g., using Tera Term or PuTTY).
+## 2. Hardware Components
+
+- **FPGA Board**: VSDSquadron FPGA Mini Board (or any iCE40-based board).
+- **LED**: A single-color LED or RGB LED connected to GPIO pins.
+- **Power Supply**: 5V USB or regulated power supply to power the FPGA board.
+- **Wires and Breadboard**: To connect the LED with the board using resistors.
+- **PC/Terminal**: For sending UART commands (e.g., using Tera Term or PuTTY).
 
 ---
 
-## **3. Software Tools**
-- **FPGA Development Tools**: Vivado, Quartus, or any other FPGA development tool compatible with the target FPGA.
-- **Programming Language**: Verilog is used to design the logic for both UART reception and PWM signal generation.
-- **UART Terminal**: Software like Tera Term or PuTTY is used on the PC to send the control commands (in this case, numerical values) via UART to the FPGA.
+## 3. Software Tools
+
+- **Synthesis & Implementation**: Yosys, NextPNR, and IcePack for open-source FPGA flow.
+- **Programming Language**: Verilog HDL.
+- **UART Terminal**: Tera Term / PuTTY to send simple characters over serial.
 
 ---
 
-## **4. System Architecture**
-The system consists of several key components:
-
-1. **UART Receiver**: The FPGA receives data (control commands) from a UART terminal.
-2. **Data Processing Unit**: The FPGA decodes the incoming UART data, which corresponds to an angle (0 to 180 degrees).
-3. **PWM Generator**: Based on the decoded angle, the FPGA generates a PWM signal that will control the servo motor’s position.
-4. **Servo Motor**: The PWM signal drives the servo motor, rotating it to the desired angle.
-
-### **Block Diagram**
-- **UART Input** -> **FPGA UART Receiver** -> **Angle Data Decoding** -> **PWM Signal Generation** -> **Servo Motor Control**
 
 ---
 
-## **5. Code Explanation**
-- **UART Receiver Module**: The UART receiver is responsible for receiving data from the serial terminal. It decodes the incoming data and stores it for further processing.
 
-  ```verilog
-  module uart_receiver (
-      input clk,
-      input rx,       // UART input
-      output reg [7:0] data_out
-  );
-      // UART reception logic: baud rate, start/stop bit detection
-      always @(posedge clk) begin
-          if (rx == 1'b0) begin
-              // Logic to capture incoming data byte
-              data_out <= data;
-          end
-      end
-  endmodule
-  
-  ```
-  # **Servo Motor Control via FPGA and UART**
+
+## 4. System Architecture
+
+1. **UART Receiver**: Receives serial data from the terminal.
+2. **Logic Unit**: Based on the received data, the system decides LED behavior.
+3. **LED Control**: A simple always block toggles or changes LED state.
+
+### Block Diagram
+
+UART Input → FPGA UART Receiver → Command Logic → LED ON/OFF or Color Cycle
+
 
 ---
 
-## **5. Servo Control Logic**
-Once the angle data is decoded, the PWM generator module takes the input and generates a PWM signal to drive the servo motor.
+## 5. Code Explanation
+
+### UART Receiver Module
+
+Receives a byte from UART and sets received high once a valid byte is captured.
 
 ```verilog
-module servo_control (
+module uart_rx_8n1 (
     input clk,
-    input [7:0] angle_data,  // Incoming angle data (0-180 degrees)
-    output pwm_signal
+    input rx,
+    output reg [7:0] rxbyte = 0,
+    output reg received = 0
 );
-    // PWM generation logic: translates angle data to duty cycle
-    // Example: angle 90 maps to a 50% duty cycle for the servo
+    // UART decoding logic (9600 baud for 50 MHz clock)
     always @(posedge clk) begin
-        pwm_signal <= (angle_data < 90) ? 1'b1 : 1'b0;  // Simple PWM signal
+        if (rx) begin
+            // Start of frame detection logic
+            // Shifting and decoding the byte
+            // Setting the received flag when a valid byte is captured
+        end
+    end
+endmodule
+```
+### Top Module with LED Logic
+
+```verilog
+module top (
+    input clk,
+    input uartrx,
+    output [2:0] rgb
+);
+    wire [7:0] rxbyte;
+    wire received;
+
+    reg [2:0] rgb_reg = 3'b001; // RED by default
+    assign rgb = rgb_reg;
+
+    // Instantiate the UART receiver module
+    uart_rx_8n1 uart_inst (
+        .clk(clk),
+        .rx(uartrx),
+        .rxbyte(rxbyte),
+        .received(received)
+    );
+
+    // LED control logic based on received UART data
+    always @(posedge clk) begin
+        if (received) begin
+            case (rgb_reg)
+                3'b001: rgb_reg <= 3'b010; // RED → GREEN
+                3'b010: rgb_reg <= 3'b100; // GREEN → BLUE
+                3'b100: rgb_reg <= 3'b001; // BLUE → RED
+                default: rgb_reg <= 3'b001;
+            endcase
+        end
     end
 endmodule
 ```
 
-## **6. Testing and Results**
+# 6. Testing and Results
 
-### **Test Procedure:**
-- Connect the FPGA board to the UART terminal on the PC.
+## Test Steps
 
-- The FPGA decodes the received value and generates the corresponding PWM signal to move the servo motor to the corresponding angle.
+1. **Connect FPGA via USB** and open UART terminal.
+2. **Send any character** via terminal.
+3. **Observe LED color change** or blinking pattern on each character input.
 
-### **Expected Results:**
-- The servo motor should move smoothly to the desired angle based on the value sent via UART.
-- 
-### **Video/Images:**
-Attach a short video showing the servo motor responding to different UART commands (e.g., moving from 0° to 180°).
+### Expected Output
+The LED color blinks upon every UART input.
 
 ---
 
-## **7. Challenges and Solutions**
+# 7. Challenges and Solutions
 
-### **Challenge 1**: UART baud rate mismatch
-- **Solution**: Ensure both the UART terminal and FPGA UART receiver are set to the same baud rate (e.g., 9600 bps).
+## Challenge 1: UART not responding
+**Solution:** Match baud rate (e.g., 9600 bps) on both FPGA and terminal.
 
-### **Challenge 2**: Servo control accuracy
-- **Solution**: Adjust the duty cycle of the PWM signal more precisely to map it to the required angle range (0° to 180°).
+## Challenge 2: Wrong GPIO pins
+**Solution:** Refer to board's PCF (pin constraint file) and verify correct connections.
 
-### **Challenge 3**: Power supply fluctuations
-- **Solution**: Use a stable 5V regulated power supply to avoid erratic servo behavior.
+## Challenge 3: Missing LED resistor
+**Solution:** Use **220–330 ohm** series resistor to avoid burning the LED.
 
 ---
 
-## **8. Conclusion**
-This project successfully demonstrates how to control a servo motor using FPGA and UART communication. It highlights the capabilities of FPGA in handling serial data and controlling hardware peripherals in real-time. The project can be expanded to include more actuators or sensors, as needed for various applications like robotics or automation systems.
+# 8. Conclusion
+The project demonstrates how to interact with simple output peripherals like LEDs using UART communication on an FPGA. This is a beginner-friendly introduction to serial communication and real-time I/O control.
