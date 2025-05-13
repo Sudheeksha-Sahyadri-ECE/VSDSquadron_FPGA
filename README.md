@@ -558,3 +558,11 @@ sudo make flash
 * FPGA board documentation and datasheet
 * UART protocol standard
 </details>
+
+
+<details>
+<summary>TASK5 and 6:RGB LED Control on VSDSquadron FPGA Mini Board
+
+</summary>
+</summary>
+</details>
