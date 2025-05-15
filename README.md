@@ -561,9 +561,9 @@ sudo make flash
 
 
 <details>
-<summary>TASK5 and 6:RGB LED Control on VSDSquadron FPGA Mini Board
+<summary>TASK5:overview of project themes
 
-</summary>
+
 </summary>
 </details>
 
