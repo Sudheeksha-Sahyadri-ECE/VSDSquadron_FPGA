@@ -111,7 +111,9 @@ This project focuses on enabling control of physical devices like LEDs or motors
 
 5. **System Testing:**  
    - Use Docklight to send commands  
-   - Observe real-time control response on actuators  
+   - Observe real-time control response on actuators
+  
+6. ![fpga_uart_display_block_diagram_tall](https://private-user-images.githubusercontent.com/150655928/443891456-98973b6f-ad12-4e63-aed1-68a1aac7fffc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcyNjg0MTYsIm5iZiI6MTc0NzI2ODExNiwicGF0aCI6Ii8xNTA2NTU5MjgvNDQzODkxNDU2LTk4OTczYjZmLWFkMTItNGU2My1hZWQxLTY4YTFhYWM3ZmZmYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTE1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxNVQwMDE1MTZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMWU0MTk4Mzc2N2UwMTQ0Njg1MjdmMGE1ZGMwOWYyNmIyNmZlNTIyMWQ0ZjYyYjdmYzUwNDVmOTBhMmVlMzVhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.3pYiCdFPMuY3hXXHyc65BxNmGRBWJqIiYe2BVdtUAMU)
 
 ---
 
