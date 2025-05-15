@@ -43,7 +43,10 @@ This project involves developing a real-time data display system where an FPGA r
    - Integrate all modules into a top-level design  
    - Flash onto the FPGA  
    - Use Docklight to send UART data  
-   - Verify correct display output  
+   - Verify correct display output
+  
+   ![fpga_uart_display_block_diagram_tall](https://github.com/user-attachments/assets/881408a3-2be3-4b4f-9c5a-59a59ae1c45b)
+
 
 ---
 
