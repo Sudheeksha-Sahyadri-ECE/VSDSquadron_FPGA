@@ -126,3 +126,5 @@ Circuit:
 
 ![CIRCUIT](https://github.com/user-attachments/assets/9f2334ca-fffa-4e4a-bd76-b06a40756329)
 
+
+ ![video](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/issues/3#issue-3064558876)
