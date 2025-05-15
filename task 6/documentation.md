@@ -124,7 +124,7 @@ set_io rgb[2]  4  # YELLOW
 
 Circuit:
 
-![CIRCUIT](https://github.com/user-attachments/assets/9f2334ca-fffa-4e4a-bd76-b06a40756329)
+![CIRCUIT](https://github.com/Sudheeksha-Sahyadri-ECE/VSDSquadron_FPGA/issues/4#issue-3064583317)
 
 Working Video:
 
